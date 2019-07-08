@@ -8,7 +8,7 @@
     <provider>org.hibernate.jpa.HibernatePersistenceProvider
     </provider>
     
-    <class>com.skilldistillery.FIXME</class>
+    <class>com.skilldistillery.toolbox.entities.Wrench</class>
 
 
     <properties>
