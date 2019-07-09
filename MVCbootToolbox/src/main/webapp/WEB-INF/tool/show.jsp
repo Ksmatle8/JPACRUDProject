@@ -7,11 +7,13 @@
 <title>Show Wrench</title>
 </head>
 <body>
+
 <div>
-<h5>${wrench.type}</h5>
-<h5>${wrench.brand}</h5>
-<h5>${wrench.size}</h5>
+<h5>${rench.type}</h5>
+<h5>${rench.brand}</h5>
+<h5>${rench.size}</h5>
 </div>
+<a href="home.do"> Main Page </a>
 
 </body>
 </html>

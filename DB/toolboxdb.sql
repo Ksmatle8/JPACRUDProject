@@ -22,7 +22,14 @@ DROP TABLE IF EXISTS `wrench` ;
 
 CREATE TABLE IF NOT EXISTS `wrench` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `type_wrench` VARCHAR(45) NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `brand` VARCHAR(45) NOT NULL,
+  `size` VARCHAR(20) NOT NULL,
+  `weight_lbs` INT NULL,
+  `drawer_number` INT NULL,
+  `cost` DOUBLE NULL,
+  `part_number` INT NULL,
+  `picture` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -42,7 +49,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `wrenchdb`;
-INSERT INTO `wrench` (`id`, `type_wrench`) VALUES (1, 'Moon');
+INSERT INTO `wrench` (`id`, `type`, `brand`, `size`, `weight_lbs`, `drawer_number`, `cost`, `part_number`, `picture`) VALUES (1, 'Moon', 'Snap-On', '10 mm', NULL, 1, 30.98, NULL, NULL);
+INSERT INTO `wrench` (`id`, `type`, `brand`, `size`, `weight_lbs`, `drawer_number`, `cost`, `part_number`, `picture`) VALUES (2, 'Open/Box End', 'Craftsman', '3/4 inch', NULL, 2, 2.34, NULL, NULL);
+INSERT INTO `wrench` (`id`, `type`, `brand`, `size`, `weight_lbs`, `drawer_number`, `cost`, `part_number`, `picture`) VALUES (3, 'Ratcheting', 'Blue Point', '1/2 inch', NULL, 1, 77.67, NULL, NULL);
 
 COMMIT;
 

@@ -1,31 +1,38 @@
-package com.skilldistillery.toolboxmvc.data;
+package com.skilldistillery.toolbox.test;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import com.skilldistillery.toolbox.entities.Wrench;
 
-@Service
-@Transactional
-public class ToolboxDAOImpl implements ToolboxDAO {
+public class Testing {
 	
-	@PersistenceContext
-	private EntityManager em;
-	
-	@Override
-	public Wrench create (Wrench wrench) {
-		 
-		em.persist(wrench);
+private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ToolboxPU");
+private static EntityManager em = emf.createEntityManager();
+
+	public static void main(String[] args) {
 		
+		Testing test = new Testing();
+		
+		Wrench wrench = new Wrench();
+		
+		wrench.setType("Moon");
+		wrench.setBrand("Snap-On");
+		wrench.setSize("3/4");
+		test.create(wrench);
+	}
+	public Wrench create (Wrench wrench) {
+		 em.getTransaction().begin();
+		em.persist(wrench);
+		em.flush();
+		em.getTransaction().commit();
+		System.out.println(wrench);
 		return wrench;
 	}
 	
-	@Override
 	public Wrench update (Integer id, Wrench wrench) {
 		
 		Wrench updateWrench =  em.find(Wrench.class, id);
@@ -42,7 +49,6 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 		return updateWrench;
 	}
 	
-	@Override
 	public boolean remove(Integer id) {
 		Wrench wrench = em.find(Wrench.class, id);
 		
@@ -51,43 +57,19 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 		
 		return false;
 	}
-	@Override
 	public Wrench findById(Integer id) {
 		return em.find(Wrench.class, id);
 	}
-	@Override
 	public Wrench findByKeword() {
 		return null;
 		
 	}
 	
-	@Override
 	public List<Wrench> findAll(){
 		String query = "Select wrench From Wrench wrench";
 		List<Wrench> wrenches = em.createQuery(query, Wrench.class).getResultList();
 		return wrenches;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

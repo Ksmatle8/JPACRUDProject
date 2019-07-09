@@ -10,13 +10,13 @@ import javax.persistence.Id;
 public class Wrench {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private String type;
 	
 	private String brand;
 	
-	private Integer size;
+	private String size;
 	
 	@Column(name="weight_lbs")
 	private Integer weightLbs;
@@ -25,18 +25,19 @@ public class Wrench {
 	@Column(name="drawer_number")
 	private Integer drawerNumber;
 	
-	private Integer price;
+	@Column(name="cost")
+	private Double price;
 	
 	@Column(name="part_number")
 	private Integer partNumber;
 	
 	private String picture;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -56,11 +57,11 @@ public class Wrench {
 		this.brand = brand;
 	}
 
-	public Integer getSize() {
+	public String getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 
@@ -80,11 +81,11 @@ public class Wrench {
 		this.drawerNumber = drawerNumber;
 	}
 
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

@@ -2,8 +2,12 @@ package com.skilldistillery.toolboxmvc.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.skilldistillery.toolbox.entities.Wrench;
 import com.skilldistillery.toolboxmvc.data.ToolboxDAO;
 
 @Controller
@@ -12,7 +16,45 @@ public class ToolboxController {
 	@Autowired
 	private ToolboxDAO dao;
 	
-	//@RequestMapping(path="")
+	@RequestMapping(path="/")
+	public String index() {
+		return "WEB-INF/index.jsp";
+	}
 	
+	@RequestMapping(path="create.do", method= RequestMethod.POST)
+	public  String create(Wrench newWrench, Model model) {
+		Wrench wrench = dao.create(newWrench);
+		model.addAttribute("rench", wrench);
+		return "WEB-INF/tool/show.jsp";
+	}
+	
+	@RequestMapping(path="createPage.do")
+	public String redirect() {
+		return "WEB-INF/tool/create.jsp";
+	}
+	
+	@RequestMapping(path="homePage.do")
+	public String home() {
+		return "WEB-INF/index.jsp";
+	}
+	
+	@RequestMapping(path="getWrench.do")
+	public String findWrench(@RequestParam("fid") Integer id, Model model) {
+		Wrench wrench = dao.findById(id);
+		model.addAttribute("wrench", wrench);
+		return "WEB-INF/tool/show.jsp";
+	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
