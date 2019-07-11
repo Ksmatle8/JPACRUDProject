@@ -1,5 +1,7 @@
 package com.skilldistillery.toolboxmvc.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,9 +42,24 @@ public class ToolboxController {
 	
 	@RequestMapping(path="getWrench.do")
 	public String findWrench(@RequestParam("fid") Integer id, Model model) {
+		System.err.println(id);
 		Wrench wrench = dao.findById(id);
 		model.addAttribute("wrench", wrench);
 		return "WEB-INF/tool/show.jsp";
+	}
+	
+	@RequestMapping(path="showAll.do", method= RequestMethod.GET)
+	public String showAllWrenches(Model model) {
+		List<Wrench> allWrenches = dao.findAll();
+		model.addAttribute("allWrenches",allWrenches);
+	return "WEB-INF/tool/showAll.jsp";	
+	}
+	
+	@RequestMapping(path="sendToUpdateDeleteForm.do", method= RequestMethod.GET)
+	public String editPage (@RequestParam("wrenchId") int id, Model model) {
+		Wrench wrench = dao.findById(id);
+		model.addAttribute("Wrenches", wrench);
+		return "WEB-INF/tool/deleteUpdate.jsp";
 	}
 	
 }

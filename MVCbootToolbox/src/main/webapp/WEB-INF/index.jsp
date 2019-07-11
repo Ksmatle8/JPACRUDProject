@@ -11,18 +11,26 @@
 <body>
 
 	<h1> TooLBoX</h1>
+	<br>
 	<a href="createPage.do"> Add New Wrench</a>
-	
+	<br>
+	<br>
 	
 	<form action="getWrench.do" method="GET">
 		Wrench ID: <input type="number" name="fid" />
 		<input type="submit" value="Show Wrench" />
 		</form>
-	<!-- <a href="getWrench.do"> Look up Wrench by Id </a> -->
-	
-	
+		<br>
+	<!-- <form action="deleteTool.do" method="GET">
+		Tool ID: <input type="number" name="id" />
+		<input type="submit" value="Find Tool">
+		</form> -->
 		
+		<br>
+	<form action="showAll.do"	method="GET">
+		<input type="submit" value="Show All Wrenches">
 	</form>
+		<br>
 
 </body>
 </html>

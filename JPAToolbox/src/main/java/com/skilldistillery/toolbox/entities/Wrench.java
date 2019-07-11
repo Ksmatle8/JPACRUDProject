@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Wrench {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 	
 	private String type;
 	
@@ -33,11 +33,11 @@ public class Wrench {
 	
 	private String picture;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

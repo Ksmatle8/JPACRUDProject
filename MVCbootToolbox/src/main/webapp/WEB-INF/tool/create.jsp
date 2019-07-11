@@ -16,10 +16,10 @@
 			value="Submit">
 
 	</form>
-	<a href="homePage.do"> Main Page </a>
-	<!-- <form acion="homePage.do">
-		<input type="submit" value="Home" />
-	</form> -->
+	<!-- <a href="homePage.do"> Main Page </a> -->
+	<form action="homePage.do" method="GET">
+		<input type="submit" value="Main Page">
+	</form>
 
 </body>
 </html>
