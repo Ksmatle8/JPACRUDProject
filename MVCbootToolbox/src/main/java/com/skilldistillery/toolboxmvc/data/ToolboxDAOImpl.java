@@ -13,23 +13,23 @@ import com.skilldistillery.toolbox.entities.Wrench;
 @Service
 @Transactional
 public class ToolboxDAOImpl implements ToolboxDAO {
-	
+
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Override
-	public Wrench create (Wrench wrench) {
-		 
+	public Wrench create(Wrench wrench) {
+
 		em.persist(wrench);
-		
+
 		return wrench;
 	}
-	
+
 	@Override
-	public Wrench update (Integer id, Wrench wrench) {
-		
-		Wrench updateWrench =  em.find(Wrench.class, id);
-		
+	public Wrench update(Integer id, Wrench wrench) {
+
+		Wrench updateWrench = em.find(Wrench.class, id);
+
 		updateWrench.setId(wrench.getId());
 		updateWrench.setType(wrench.getType());
 		updateWrench.setBrand(wrench.getBrand());
@@ -38,56 +38,33 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 		updateWrench.setDrawerNumber(wrench.getDrawerNumber());
 		updateWrench.setPrice(wrench.getPrice());
 		updateWrench.setPartNumber(wrench.getPartNumber());
-		
+
 		return updateWrench;
 	}
-	
+
 	@Override
 	public boolean remove(Integer id) {
 		Wrench wrench = em.find(Wrench.class, id);
-		
 		em.remove(wrench);
-		//System.out.println(wrench);
-		
-		return false;
+		// System.out.println(wrench);
+		return true;
 	}
+
 	@Override
 	public Wrench findById(Integer id) {
 		return em.find(Wrench.class, id);
 	}
+
 	@Override
 	public Wrench findByKeword() {
 		return null;
-		
+
 	}
-	
+
 	@Override
-	public List<Wrench> findAll(){
+	public List<Wrench> findAll() {
 		String query = "Select wrench From Wrench wrench";
 		List<Wrench> wrenches = em.createQuery(query, Wrench.class).getResultList();
 		return wrenches;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

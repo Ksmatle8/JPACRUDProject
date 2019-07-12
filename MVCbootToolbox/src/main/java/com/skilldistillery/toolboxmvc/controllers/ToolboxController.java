@@ -17,61 +17,61 @@ public class ToolboxController {
 
 	@Autowired
 	private ToolboxDAO dao;
-	
-	@RequestMapping(path="/")
+
+	@RequestMapping(path = "/")
 	public String index() {
 		return "WEB-INF/index.jsp";
 	}
-	
-	@RequestMapping(path="create.do", method= RequestMethod.POST)
-	public  String create(Wrench newWrench, Model model) {
+
+	@RequestMapping(path = "create.do", method = RequestMethod.POST)
+	public String create(Wrench newWrench, Model model) {
 		Wrench wrench = dao.create(newWrench);
 		model.addAttribute("rench", wrench);
 		return "WEB-INF/tool/show.jsp";
 	}
-	
-	@RequestMapping(path="createPage.do")
+
+	@RequestMapping(path = "createPage.do")
 	public String redirect() {
 		return "WEB-INF/tool/create.jsp";
 	}
-	
-	@RequestMapping(path="homePage.do")
+
+	@RequestMapping(path = "homePage.do")
 	public String home() {
 		return "WEB-INF/index.jsp";
 	}
-	
-	@RequestMapping(path="getWrench.do")
+
+	@RequestMapping(path = "getWrench.do")
 	public String findWrench(@RequestParam("fid") Integer id, Model model) {
 		System.err.println(id);
 		Wrench wrench = dao.findById(id);
 		model.addAttribute("wrench", wrench);
 		return "WEB-INF/tool/show.jsp";
 	}
-	
-	@RequestMapping(path="showAll.do", method= RequestMethod.GET)
+
+	@RequestMapping(path = "showAll.do", method = RequestMethod.GET)
 	public String showAllWrenches(Model model) {
 		List<Wrench> allWrenches = dao.findAll();
-		model.addAttribute("allWrenches",allWrenches);
-	return "WEB-INF/tool/showAll.jsp";	
+		model.addAttribute("allWrenches", allWrenches);
+		return "WEB-INF/tool/showAll.jsp";
 	}
-	
-	@RequestMapping(path="sendToUpdateDeleteForm.do", method= RequestMethod.GET)
-	public String editPage (@RequestParam("wrenchId") int id, Model model) {
+
+	@RequestMapping(path = "sendToUpdateDeleteForm.do", method = RequestMethod.GET)
+	public String editPage(@RequestParam("wrenchId") int id, Model model) {
 		Wrench wrench = dao.findById(id);
-		model.addAttribute("Wrenches", wrench);
+		model.addAttribute("wrench", wrench);
 		return "WEB-INF/tool/deleteUpdate.jsp";
 	}
-	
+
+	@RequestMapping(path = "deleted.do", method = RequestMethod.POST)
+	public String removeTool(int id, Model model) {
+		boolean wrenchDeleted = dao.remove(id);
+		return "WEB-INF/tool/deleted.jsp";
+	}
+
+	@RequestMapping(path = "update.do", method = RequestMethod.POST)
+	public String updateTool(int id, Model model, Wrench wrench) {
+		Wrench updatedWrench = dao.update(id, wrench);
+		model.addAttribute("Wrenches", updatedWrench);
+		return "WEB-INF/tool/show.jsp";
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

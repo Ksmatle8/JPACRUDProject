@@ -18,6 +18,7 @@
 						<input type="hidden" value="${wrench.id}" name="wrenchId">
 						<input type="submit" value="Update / Delete">
 					</form>
+					<br>
 				</c:forEach>
 			</ul>
 		</c:when>
