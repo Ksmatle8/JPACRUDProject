@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `wrench_has_wrench_type` ;
 CREATE TABLE IF NOT EXISTS `wrench_has_wrench_type` (
   `wrench_id` INT NOT NULL,
   `wrench_type_id` INT NOT NULL,
-  PRIMARY KEY (`wrench_id`, `wrench_type_id`),
+  PRIMARY KEY (`wrench_type_id`, `wrench_id`),
   INDEX `fk_wrench_has_wrench_type_wrench_type1_idx` (`wrench_type_id` ASC),
   INDEX `fk_wrench_has_wrench_type_wrench_idx` (`wrench_id` ASC),
   CONSTRAINT `fk_wrench_has_wrench_type_wrench`
@@ -88,6 +88,19 @@ USE `wrenchdb`;
 INSERT INTO `wrench` (`id`, `brand`, `size`, `weight_lbs`, `drawer_number`, `cost`, `part_number`, `picture`) VALUES (1, 'Snap-On', '10 mm', NULL, 1, 30.98, 1234, NULL);
 INSERT INTO `wrench` (`id`, `brand`, `size`, `weight_lbs`, `drawer_number`, `cost`, `part_number`, `picture`) VALUES (2, 'Craftsman', '3/4 inch', NULL, 2, 2.34, 4321, NULL);
 INSERT INTO `wrench` (`id`, `brand`, `size`, `weight_lbs`, `drawer_number`, `cost`, `part_number`, `picture`) VALUES (3, 'Blue Point', '1/2 inch', NULL, 1, 77.67, 2345, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `wrench_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `wrenchdb`;
+INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (1, 'Moon', 'Used for Starters mainly shaped like a half moon');
+INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (2, 'Ratcheting', 'Open on one end ratcheting on other end');
+INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (3, 'Shorty', 'Open/Box but a Minny');
+INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (4, 'Open/Box', 'Normal everyday wrentch');
 
 COMMIT;
 

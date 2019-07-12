@@ -1,20 +1,37 @@
 package com.skilldistillery.toolbox.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "wrench_type")
 public class TypeWrench {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String description;
+
+	@ManyToMany(mappedBy = "typeWrench")
+	private List<Wrench> wrenchs;
+
+	public List<Wrench> getWrenchs() {
+		return wrenchs;
+	}
+
+	public void setWrenchs(List<Wrench> wrench) {
+		this.wrenchs = wrench;
+	}
 
 	public int getId() {
 		return id;
@@ -80,7 +97,22 @@ public class TypeWrench {
 	public TypeWrench() {
 		super();
 	}
-	
-	
-	
+
+	public void addWrench(Wrench wrench) {
+		if (this.wrenchs == null)
+			wrenchs = new ArrayList<>();
+
+		if (!wrenchs.contains(wrench)) {
+			wrenchs.add(wrench);
+			wrench.addTypeWrench(this);
+		}
+	}
+
+	public void removeWrench(Wrench wrench) {
+		if (wrenchs != null && wrenchs.contains(wrench)) {
+			wrenchs.remove(wrench);
+			wrench.removeTypeWrench(this);
+		}
+	}
+
 }

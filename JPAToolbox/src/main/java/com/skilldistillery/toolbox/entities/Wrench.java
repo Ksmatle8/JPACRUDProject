@@ -1,10 +1,17 @@
 package com.skilldistillery.toolbox.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Wrench {
@@ -29,6 +36,37 @@ public class Wrench {
 	private Integer partNumber;
 
 	private String picture;
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@JoinTable(name="wrench_has_wrench_type", 
+				joinColumns=@JoinColumn(name="wrench_id"),
+				inverseJoinColumns=@JoinColumn(name="wrench_type_id"))
+	private List<TypeWrench> typeWrench;
+	
+	public void addTypeWrench(TypeWrench type) {
+		if(typeWrench == null) typeWrench = new ArrayList<>();
+		
+		if(!typeWrench.contains(type)) {
+			typeWrench.add(type);
+			type.addWrench(this);
+		}
+	}
+
+	public void removeTypeWrench(TypeWrench type) {
+		if(typeWrench != null && typeWrench.contains(type)) {
+			typeWrench.remove(type);
+			type.removeWrench(this);
+		}
+	}
+	public List<TypeWrench> getTypeWrench() {
+		return typeWrench;
+	}
+
+
+	public void setTypeWrench(List<TypeWrench> typeWrench) {
+		this.typeWrench = typeWrench;
+	}
+
 
 	public int getId() {
 		return id;
