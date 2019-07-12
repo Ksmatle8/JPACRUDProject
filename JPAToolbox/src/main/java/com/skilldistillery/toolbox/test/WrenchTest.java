@@ -8,18 +8,17 @@ import javax.persistence.Persistence;
 
 import com.skilldistillery.toolbox.entities.Wrench;
 
-public class Testing {
+public class WrenchTest {
 	
 private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ToolboxPU");
 private static EntityManager em = emf.createEntityManager();
 
 	public static void main(String[] args) {
 		
-		Testing test = new Testing();
+		WrenchTest test = new WrenchTest();
 		
 		Wrench wrench = new Wrench();
 		
-		wrench.setType("Moon");
 		wrench.setBrand("Snap-On");
 		wrench.setSize("3/4");
 		test.create(wrench);
@@ -38,7 +37,6 @@ private static EntityManager em = emf.createEntityManager();
 		Wrench updateWrench =  em.find(Wrench.class, id);
 		
 		updateWrench.setId(wrench.getId());
-		updateWrench.setType(wrench.getType());
 		updateWrench.setBrand(wrench.getBrand());
 		updateWrench.setSize(wrench.getSize());
 		updateWrench.setWeightLbs(wrench.getWeightLbs());

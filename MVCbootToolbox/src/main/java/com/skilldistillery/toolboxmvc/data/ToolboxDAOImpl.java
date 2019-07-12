@@ -31,7 +31,6 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 		Wrench updateWrench =  em.find(Wrench.class, id);
 		
 		updateWrench.setId(wrench.getId());
-		updateWrench.setType(wrench.getType());
 		updateWrench.setBrand(wrench.getBrand());
 		updateWrench.setSize(wrench.getSize());
 		updateWrench.setWeightLbs(wrench.getWeightLbs());
