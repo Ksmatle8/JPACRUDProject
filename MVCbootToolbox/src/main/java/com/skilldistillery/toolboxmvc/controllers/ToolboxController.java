@@ -98,7 +98,15 @@ public class ToolboxController {
 		return  "WEB-INF/tool/show.jsp";
 	}
 	
-	//@RequestMapping(path)
+	@RequestMapping(path="deleteTypeOfWrench.do", method = RequestMethod.POST)
+	public String deleteTypeOfWrench(int id, String typeWrench, Model model) {
+		TypeWrench deleteTypeWrench = dao.findTypeByName(typeWrench);
+		Wrench findWrench = dao.findById(id);
+		findWrench.removeTypeWrench(deleteTypeWrench);
+		dao.update(findWrench.getId(), findWrench);
+		model.addAttribute("wrench", findWrench);
+		return "WEB-INF/tool/show.jsp";
+	}
 	
 	
 }

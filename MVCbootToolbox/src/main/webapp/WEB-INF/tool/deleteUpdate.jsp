@@ -15,7 +15,10 @@
 
 	<h4>Wrench ID: ${wrench.id}</h4>
 	<form action="update.do" method= "POST">
-
+		<c:forEach var="type" items="${wrench.typeWrench}">
+		<p>${type.name}</p>
+		</c:forEach>
+		<br>
 		<label for="brand">Brand: </label>
 		<input type="text" name="brand" value="${wrench.brand}" required>
 		<br>
@@ -44,11 +47,12 @@
 			type="submit" value="Update">
 	</form>
 	
-	<form action="addNewTypeToWrench.do" method="POST">
 	
 	<h3><strong>Update Type of Wrench</strong></h3>
 	
-		<label for="typeWrench">Type of Tool: </label>
+	<form action="addNewTypeToWrench.do" method="POST">
+	
+		<label for="typeWrench">Add Wrench Type: </label>
 		<input type="text" name="typeWrench">
 		<br>
 		
@@ -59,12 +63,27 @@
 		<input type="hidden" value="${wrench.id}" name="id"> <input
 			type="submit" value="Update">
 		</form>
+		<br>
+		<h3>Delete Type of Wrench</h3>
+	<form action="deleteTypeOfWrench.do" method="POST">
+	
+		<label for="typeWrench">Add Wrench Type: </label>
+		<input type="text" name="typeWrench">
+		<br>
+		
+		<%-- <label for="typeWrench.description">Description: </label>
+		<input type="text" name="typeWrench.description" value="${wrench.typeWrench.get(0).description}" size="75">
+		<br>  --%>
+		
+		<input type="hidden" value="${wrench.id}" name="id"> <input
+			type="submit" value="Delete">
+		</form>
 
 
 	
 	<form action="deleted.do" method="POST">
 		<input type="hidden" value="${wrench.id}" name="id"> <input
-			type="submit" value="Delete">
+			type="submit" value="Delete Tool">
 	</form>
 	<form action="homePage.do" method="GET">
 		<input type="submit" value="Main Page">
