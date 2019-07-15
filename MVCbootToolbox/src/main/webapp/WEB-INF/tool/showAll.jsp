@@ -13,7 +13,13 @@
 		<c:when test="${! empty allWrenches}">
 			<ul>
 				<c:forEach items="${allWrenches}" var="wrench">
-					<a href="getWrench.do?fid=${wrench.id}">${wrench.brand}(${wrench.type})</a>
+					<a href="getWrench.do?fid=${wrench.id}">${wrench.brand}</a>
+					<ul>
+						<c:forEach var="type" items="${wrench.typeWrench}">
+							<li>${type.name}</li>
+						</c:forEach>
+					</ul>
+
 					<form action="sendToUpdateDeleteForm.do">
 						<input type="hidden" value="${wrench.id}" name="wrenchId">
 						<input type="submit" value="Update / Delete">
@@ -23,7 +29,7 @@
 			</ul>
 		</c:when>
 		<c:otherwise>
-		<p> There are not more wrenches in your ToolBox</p>
+			<p>There are not more wrenches in your ToolBox</p>
 		</c:otherwise>
 	</c:choose>
 
