@@ -24,7 +24,7 @@ public class Wrench {
 	private String size;
 
 	@Column(name = "weight_lbs")
-	private Integer weightLbs;
+	private Double weightLbs;
 
 	@Column(name = "drawer_number")
 	private Integer drawerNumber;
@@ -37,7 +37,8 @@ public class Wrench {
 
 	private String picture;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToMany
+	//(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinTable(name="wrench_has_wrench_type", 
 				joinColumns=@JoinColumn(name="wrench_id"),
 				inverseJoinColumns=@JoinColumn(name="wrench_type_id"))
@@ -59,7 +60,8 @@ public class Wrench {
 		}
 	}
 	public List<TypeWrench> getTypeWrench() {
-		return typeWrench;
+		List<TypeWrench> listCopy = this.typeWrench;
+		return listCopy;
 	}
 
 
@@ -92,11 +94,11 @@ public class Wrench {
 		this.size = size;
 	}
 
-	public Integer getWeightLbs() {
+	public Double getWeightLbs() {
 		return weightLbs;
 	}
 
-	public void setWeightLbs(Integer weightLbs) {
+	public void setWeightLbs(Double weightLbs) {
 		this.weightLbs = weightLbs;
 	}
 
@@ -138,7 +140,7 @@ public class Wrench {
 		builder.append("Wrench [id=").append(id).append(", brand=").append(brand).append(", size=").append(size)
 				.append(", weightLbs=").append(weightLbs).append(", drawerNumber=").append(drawerNumber)
 				.append(", price=").append(price).append(", partNumber=").append(partNumber).append(", picture=")
-				.append(picture).append("]");
+				.append(picture).append(", typeWrench=").append(typeWrench).append("]");
 		return builder.toString();
 	}
 
@@ -168,7 +170,7 @@ public class Wrench {
 		super();
 	}
 
-	public Wrench(int id, String brand, String size, Integer weightLbs, Integer drawerNumber, Double price,
+	public Wrench(int id, String brand, String size, Double weightLbs, Integer drawerNumber, Double price,
 			Integer partNumber, String picture) {
 		super();
 		this.id = id;

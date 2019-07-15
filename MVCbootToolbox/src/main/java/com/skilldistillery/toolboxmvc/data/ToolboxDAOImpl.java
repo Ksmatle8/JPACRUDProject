@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.toolbox.entities.TypeWrench;
 import com.skilldistillery.toolbox.entities.Wrench;
 
 @Service
@@ -21,7 +22,7 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 	public Wrench create (Wrench wrench) {
 		 
 		em.persist(wrench);
-		
+		em.flush();
 		return wrench;
 	}
 	
@@ -29,8 +30,12 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 	public Wrench update (Integer id, Wrench wrench) {
 		
 		Wrench updateWrench =  em.find(Wrench.class, id);
+		//TypeWrench typeW = em.find(TypeWrench.class, id);
 		
 		updateWrench.setId(wrench.getId());
+		
+		//updateWrench.addTypeWrench(wrench.getTypeWrench().get(0));
+		
 		updateWrench.setBrand(wrench.getBrand());
 		updateWrench.setSize(wrench.getSize());
 		updateWrench.setWeightLbs(wrench.getWeightLbs());
@@ -44,11 +49,12 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 	@Override
 	public boolean remove(Integer id) {
 		Wrench wrench = em.find(Wrench.class, id);
-		
+		try {
 		em.remove(wrench);
-		//System.out.println(wrench);
-		
-		return false;
+		}catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 	@Override
 	public Wrench findById(Integer id) {
@@ -65,6 +71,15 @@ public class ToolboxDAOImpl implements ToolboxDAO {
 		String query = "Select wrench From Wrench wrench";
 		List<Wrench> wrenches = em.createQuery(query, Wrench.class).getResultList();
 		return wrenches;
+	}
+
+	@Override
+	public TypeWrench findTypeByName(String type) {
+		String query = "Select tw From TypeWrench tw where tw.name = :name";
+		TypeWrench foundTypeWrench = em.createQuery(query, TypeWrench.class)
+							.setParameter("name", type)
+							.getSingleResult();
+		return foundTypeWrench;
 	}
 }
 

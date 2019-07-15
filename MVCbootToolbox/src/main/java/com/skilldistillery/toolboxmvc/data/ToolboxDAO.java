@@ -2,6 +2,7 @@ package com.skilldistillery.toolboxmvc.data;
 
 import java.util.List;
 
+import com.skilldistillery.toolbox.entities.TypeWrench;
 import com.skilldistillery.toolbox.entities.Wrench;
 
 public interface ToolboxDAO {
@@ -11,4 +12,5 @@ public interface ToolboxDAO {
 	public Wrench findById(Integer id);
 	public List<Wrench> findAll();
 	public Wrench findByKeword();
+	public TypeWrench findTypeByName(String type);
 }

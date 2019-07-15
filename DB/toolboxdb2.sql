@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `wrench_type` ;
 CREATE TABLE IF NOT EXISTS `wrench_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(200) NOT NULL,
+  `description` VARCHAR(200) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -97,10 +97,18 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `wrenchdb`;
-INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (1, 'Moon', 'Used for Starters mainly shaped like a half moon');
-INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (2, 'Ratcheting', 'Open on one end ratcheting on other end');
-INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (3, 'Shorty', 'Open/Box but a Minny');
-INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (4, 'Open/Box', 'Normal everyday wrentch');
+INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (1, 'Moon', NULL);
+INSERT INTO `wrench_type` (`id`, `name`, `description`) VALUES (2, 'Monkey', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `wrench_has_wrench_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `wrenchdb`;
+INSERT INTO `wrench_has_wrench_type` (`wrench_id`, `wrench_type_id`) VALUES (1, 1);
 
 COMMIT;
 

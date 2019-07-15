@@ -2,13 +2,17 @@ package com.skilldistillery.toolboxmvc.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.skilldistillery.toolbox.entities.TypeWrench;
 import com.skilldistillery.toolbox.entities.Wrench;
 import com.skilldistillery.toolboxmvc.data.ToolboxDAO;
 
@@ -24,10 +28,14 @@ public class ToolboxController {
 	}
 	
 	@RequestMapping(path="create.do", method= RequestMethod.POST)
-	public  String create(Wrench newWrench, Model model) {
-		Wrench wrench = dao.create(newWrench);
-		model.addAttribute("rench", wrench);
-		return "WEB-INF/tool/show.jsp";
+	public  String create(@Valid Wrench wrench, Errors errors, Model model) {
+		Wrench newWrench;
+		if(errors.getErrorCount() != 0) {
+			return "WEB-INF/tool/error.jsp";
+		}
+		newWrench = dao.create(wrench);
+		model.addAttribute("newWrench", newWrench);
+		return "WEB-INF/tool/newwrenchcreated.jsp";
 	}
 	
 	@RequestMapping(path="createPage.do")
@@ -58,9 +66,39 @@ public class ToolboxController {
 	@RequestMapping(path="sendToUpdateDeleteForm.do", method= RequestMethod.GET)
 	public String editPage (@RequestParam("wrenchId") int id, Model model) {
 		Wrench wrench = dao.findById(id);
-		model.addAttribute("Wrenches", wrench);
+		model.addAttribute("wrench", wrench);
 		return "WEB-INF/tool/deleteUpdate.jsp";
 	}
+	
+	@RequestMapping(path = "deleted.do", method = RequestMethod.POST)
+	public String removeTool(int id, Model model) {
+		boolean wrenchDeleted = dao.remove(id);
+		return "WEB-INF/tool/deleted.jsp";
+	}
+
+	@RequestMapping(path = "update.do", method = RequestMethod.POST)
+	public String updateTool(int id, Model model, Wrench wrench) {
+		System.err.println(wrench);
+		Wrench updatedWrench = dao.update(id, wrench);
+		updatedWrench = dao.findById(id);
+		model.addAttribute("wrench", updatedWrench);
+		return "WEB-INF/tool/show.jsp";
+	}
+	
+	@RequestMapping(path = "addNewTypeToWrench.do", method = RequestMethod.POST)
+	public String addNewTypeToWrench(int id, /* Wrench wrench, */ String typeWrench, Model model) {
+		System.err.println(id);
+//		System.err.println(wrench);
+		TypeWrench newTypeWrench = dao.findTypeByName(typeWrench);
+		Wrench findWrench = dao.findById(id);
+		findWrench.addTypeWrench(newTypeWrench);
+		dao.update(findWrench.getId(), findWrench);
+		model.addAttribute("wrench", findWrench);
+		return  "WEB-INF/tool/show.jsp";
+	}
+	
+	//@RequestMapping(path)
+	
 	
 }
 
